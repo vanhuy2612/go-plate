@@ -1,8 +1,9 @@
-package config
+package storage
 
 import (
 	"context"
 	"log"
+	"root/src/util"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -13,21 +14,18 @@ var (
 )
 
 // Init connects to the Redis cluster
-func Init() {
+func InitRedis() {
+	var addrs []string
+	var password string
+	addrs = util.GetEnvWithComma("REDIS_HOST", ",")
+	password = util.GetEnv("REDIS_PASS")
 	Rdb = redis.NewClusterClient(&redis.ClusterOptions{
-		Addrs: []string{
-			"10.100.30.105:7001",
-			"10.100.30.105:7002",
-			"10.100.30.105:7003",
-			"10.100.30.105:7004",
-			"10.100.30.105:7005",
-			"10.100.30.105:7006",
-		},
-		Password: "kbsv",
+		Addrs:    addrs,
+		Password: password,
 	})
 
 	if err := Rdb.Ping(Ctx).Err(); err != nil {
-		log.Fatalf("Could not connect to Redis Cluster: %v", err)
+		log.Fatalf("Could not connect to Redis Cluster: %v %v", addrs, err)
 	}
 
 	log.Println("Connected to Redis Cluster")

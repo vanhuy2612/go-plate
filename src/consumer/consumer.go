@@ -4,15 +4,16 @@ import (
 	"context"
 	"github.com/segmentio/kafka-go"
 	"log"
-	"root/src/config"
+	"root/src/storage"
 )
+
 func StartConsumer() {
 	reader := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:   []string{"10.100.30.105:39091","10.100.30.105:39092","10.100.30.105:39093"},
-		Topic:     "golang",
-		GroupID:   "golang-group",
-		MinBytes:  10e3, // 10KB
-		MaxBytes:  10e6, // 10MB
+		Brokers:  []string{"10.100.30.105:39091", "10.100.30.105:39092", "10.100.30.105:39093"},
+		Topic:    "golang",
+		GroupID:  "golang-group",
+		MinBytes: 10e3, // 10KB
+		MaxBytes: 10e6, // 10MB
 	})
 	defer reader.Close()
 
@@ -24,8 +25,8 @@ func StartConsumer() {
 		}
 		log.Printf("Received message at offset %d: key=%s value=%s\n",
 			msg.Offset, string(msg.Key), string(msg.Value))
-		val, err := config.Rdb.Get(config.Ctx, "golang").Result()
-		if (err != nil) {
+		val, err := storage.Rdb.Get(storage.Ctx, "golang").Result()
+		if err != nil {
 			panic(err)
 		}
 		log.Printf("Redis value = %s", val)

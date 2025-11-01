@@ -1,6 +1,12 @@
 package route
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"root/src/storage"
+)
+import "root/src/controller"
+
+var userCtl = &controller.UserController{DB: storage.DB}
 
 func InitRoute(router *gin.Engine) {
 	api := router.Group("/api/v1")
@@ -10,5 +16,7 @@ func InitRoute(router *gin.Engine) {
 				"message": "test successful",
 			})
 		})
+		api.GET("/users", userCtl.GetAll)
+		api.GET("/users/:id", userCtl.Detail)
 	}
 }

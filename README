@@ -3,3 +3,9 @@ File -> Setting -> Search "Go" -> install plugin
 2. Setup Go Root, Go Path
 Download file install : go1.24.6.windows-amd64.zip and unzip to a PATH://to-go
 File -> Setting -> Language & Framework -> edit Go root, Go path above
+3. Setup Env
+go env -w GOSUMDB=sum.golang.org
+go env -w GOPROXY=https://proxy.golang.org,direct
+check
+go env | grep GOSUMDB
+go env | grep GOPROXY
