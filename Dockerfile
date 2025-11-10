@@ -31,8 +31,13 @@ RUN adduser -D -s /bin/sh appuser
 
 WORKDIR /root/
 
+RUN chmod +x .
+
 # Copy binary from builder stage
 COPY --from=builder /app/main .
+
+# Copy .env from builder stage
+COPY --from=builder /app/.env .
 
 # Change ownership to non-root user
 RUN chown appuser:appuser main
@@ -41,7 +46,7 @@ RUN chown appuser:appuser main
 USER appuser
 
 # Expose port (adjust as needed)
-EXPOSE 8080
+EXPOSE 3333
 
 # Run the binary
 CMD ["./main"]
