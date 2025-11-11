@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"root/src/models"
 	"sync"
+	"time"
 )
 
 type IPostService interface {
@@ -17,9 +18,19 @@ type PostService struct {
 	DB *gorm.DB
 }
 
+var client = &http.Client{
+	Transport: &http.Transport{
+		MaxIdleConns:        100,
+		MaxConnsPerHost:     100,
+		IdleConnTimeout:     90 * time.Second,
+		DisableCompression:  false,
+	},
+	Timeout: 10 * time.Second,
+}
+
 func fetch(wg *sync.WaitGroup, ch chan<- models.Post) {
 	defer wg.Done()
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts/1")
+	resp, err := client.Get("https://jsonplaceholder.typicode.com/posts/1")
 	if err != nil {
 		panic(err)
 	}

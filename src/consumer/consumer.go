@@ -12,7 +12,7 @@ func StartConsumer() {
 		Brokers:  []string{"10.100.30.105:39091", "10.100.30.105:39092", "10.100.30.105:39093"},
 		Topic:    "golang",
 		GroupID:  "golang-group",
-		MinBytes: 10e3, // 10KB
+		MinBytes: 1, // 10KB
 		MaxBytes: 10e6, // 10MB
 	})
 	defer reader.Close()

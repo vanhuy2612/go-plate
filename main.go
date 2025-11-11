@@ -1,14 +1,17 @@
 package main
 
 import (
+	"root/src/consumer"
 	"root/src/core"
+	"root/src/monitor"
+	"root/src/storage"
 	"root/src/util"
 )
 
 func main() {
 	util.LoadEnv()
-	//config.InitRedis()
-	//go consumer.StartConsumer()
-	//go monitor.Init()
+	go storage.InitRedis()
+	go consumer.StartConsumer()
+	go monitor.Init()
 	core.StartServer()
 }
