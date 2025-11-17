@@ -2,7 +2,6 @@ package service
 
 import (
 	"encoding/json"
-	"gorm.io/gorm"
 	"io"
 	"net/http"
 	"root/src/models"
@@ -15,15 +14,14 @@ type IPostService interface {
 }
 
 type PostService struct {
-	DB *gorm.DB
 }
 
 var client = &http.Client{
 	Transport: &http.Transport{
-		MaxIdleConns:        100,
-		MaxConnsPerHost:     100,
-		IdleConnTimeout:     90 * time.Second,
-		DisableCompression:  false,
+		MaxIdleConns:       100,
+		MaxConnsPerHost:    100,
+		IdleConnTimeout:    90 * time.Second,
+		DisableCompression: false,
 	},
 	Timeout: 10 * time.Second,
 }
