@@ -18,5 +18,5 @@ type UserService struct {
 func (u *UserService) GetAll(c *gin.Context) {
 	var users []models.User
 	u.DB.Where("").Limit(10).Offset(0).Find(&users)
-	c.JSON(http.StatusOK, gin.H{"data": users})
+	c.JSON(http.StatusOK, gin.H{"d": users})
 }
