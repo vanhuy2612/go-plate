@@ -1,9 +1,7 @@
 package main
 
 import (
-	"root/src/consumer"
 	"root/src/core"
-	"root/src/monitor"
 	"root/src/util"
 	"runtime"
 )
@@ -11,7 +9,7 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	util.LoadEnv()
-	go consumer.StartConsumer()
-	go monitor.Init()
+	//go consumer.StartConsumer()
+	//go monitor.Init()
 	core.StartServer()
 }

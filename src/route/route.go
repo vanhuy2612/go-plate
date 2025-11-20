@@ -2,11 +2,20 @@ package route
 
 import (
 	"github.com/gin-gonic/gin"
+	"root/src/service"
+	"root/src/storage"
 )
 import "root/src/controller"
 
 func InitRoute(router *gin.Engine) {
-	var systemCtl = &controller.SystemController{}
+	DB := storage.DB
+	var systemSc = &service.SystemService{}
+	var userSc = &service.UserService{DB: DB}
+	var systemCtl = &controller.SystemController{
+		Service:     systemSc,
+		UserService: userSc,
+	}
+
 	api := router.Group("/api/v1")
 	{
 		api.GET("/cpu-bound", systemCtl.HandleCpuBound)
