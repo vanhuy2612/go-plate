@@ -16,18 +16,19 @@ type ISystemController interface {
 type SystemController struct {
 	Service     *service.SystemService
 	UserService *service.UserService
+	CpuService  *service.CpuService
 }
 
 func (sc *SystemController) HandleCpuBound(c *gin.Context) {
-	sc.Service.ResizeImage(c)
+	sc.CpuService.ResizeImage(c)
 }
 
 func (sc *SystemController) HandleIOReadDB(c *gin.Context) {
-	sc.UserService.GetAll(c)
+	sc.UserService.Find(c)
 }
 
 func (sc *SystemController) HandleIOWriteDB(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"data": true})
+	sc.UserService.Save(c)
 }
 
 func (sc *SystemController) HandleIOPublish2Queue(c *gin.Context) {

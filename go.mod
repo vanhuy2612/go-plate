@@ -5,8 +5,10 @@ go 1.24.0
 toolchain go1.24.6
 
 require (
+	github.com/alitto/pond/v2 v2.6.0
 	github.com/gin-contrib/gzip v1.2.3
 	github.com/gin-gonic/gin v1.10.0
+	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/segmentio/kafka-go v0.4.48

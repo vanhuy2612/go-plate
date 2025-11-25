@@ -9,11 +9,13 @@ import "root/src/controller"
 
 func InitRoute(router *gin.Engine) {
 	DB := storage.DB
+	var cpuSc = &service.CpuService{}
 	var systemSc = &service.SystemService{}
 	var userSc = &service.UserService{DB: DB}
 	var systemCtl = &controller.SystemController{
 		Service:     systemSc,
 		UserService: userSc,
+		CpuService:  cpuSc,
 	}
 
 	api := router.Group("/api/v1")

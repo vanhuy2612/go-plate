@@ -13,11 +13,13 @@ func StartConsumer() {
 	topic := util.GetEnv("KAFKA_TOPIC")
 	groupId := util.GetEnv("KAFKA_GROUPID")
 	reader := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:  addrs,
-		Topic:    topic,
-		GroupID:  groupId,
-		MinBytes: 1,    // 10KB
-		MaxBytes: 10e6, // 10MB
+		Brokers:        addrs,
+		Topic:          topic,
+		GroupID:        groupId,
+		MinBytes:       1,    // 10KB
+		MaxBytes:       10e6, // 10MB
+		StartOffset:    kafka.FirstOffset,
+		CommitInterval: 0,
 	})
 	defer reader.Close()
 
