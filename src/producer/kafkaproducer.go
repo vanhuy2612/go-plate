@@ -24,7 +24,10 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
-	defer cl.Close()
+	/**
+	Tại sao lại đặt Close ở đây ????
+	 */
+	//defer cl.Close()
 	Client = cl
 }
 
