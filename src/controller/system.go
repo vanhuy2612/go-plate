@@ -17,6 +17,7 @@ type SystemController struct {
 	Service     *service.SystemService
 	UserService *service.UserService
 	CpuService  *service.CpuService
+	QueueService *service.QueueService
 }
 
 func (sc *SystemController) HandleCpuBound(c *gin.Context) {
@@ -32,6 +33,7 @@ func (sc *SystemController) HandleIOWriteDB(c *gin.Context) {
 }
 
 func (sc *SystemController) HandleIOPublish2Queue(c *gin.Context) {
+	sc.QueueService.Publish2Queue(c)
 	c.JSON(http.StatusOK, gin.H{"data": true})
 }
 
