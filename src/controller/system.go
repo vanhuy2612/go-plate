@@ -18,6 +18,7 @@ type SystemController struct {
 	UserService *service.UserService
 	CpuService  *service.CpuService
 	QueueService *service.QueueService
+	WeatherService *service.WeatherService
 }
 
 func (sc *SystemController) HandleCpuBound(c *gin.Context) {
@@ -38,5 +39,6 @@ func (sc *SystemController) HandleIOPublish2Queue(c *gin.Context) {
 }
 
 func (sc *SystemController) HandleIOCallExternalApi(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"data": true})
+	weather := sc.WeatherService.Fetch()
+	c.JSON(http.StatusOK, gin.H{"data": weather})
 }

@@ -13,11 +13,13 @@ func InitRoute(router *gin.Engine) {
 	var systemSc = &service.SystemService{}
 	var userSc = &service.UserService{DB: DB}
 	var queueSc = &service.QueueService{}
+	var weatherSc = &service.WeatherService{}
 	var systemCtl = &controller.SystemController{
 		Service:     systemSc,
 		UserService: userSc,
 		CpuService:  cpuSc,
 		QueueService: queueSc,
+		WeatherService: weatherSc,
 	}
 
 	api := router.Group("/api/v1")
