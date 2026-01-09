@@ -39,6 +39,9 @@ COPY --from=builder /app/main .
 # Copy .env from builder stage
 COPY --from=builder /app/.env .
 
+# Copy images
+COPY ./public ./public
+
 # Change ownership to non-root user
 RUN chown appuser:appuser main
 
